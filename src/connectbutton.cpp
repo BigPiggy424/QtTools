@@ -1,7 +1,7 @@
 /**
  * @file connectbutton.cpp
  * @author ldk
- * @brief 
+ * @brief 原用于相机的连接按钮，双击按钮或者单击图标触发事件
  * @version 0.1
  * @date 2023-02-01
  * 

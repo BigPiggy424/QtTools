@@ -1,7 +1,7 @@
 /**
  * @file graphicscontroller.cpp
  * @author ldk
- * @brief 
+ * @brief 图像显示控件
  * @version 0.1
  * @date 2023-02-01
  * 

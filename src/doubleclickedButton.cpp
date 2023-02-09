@@ -1,7 +1,7 @@
 /**
  * @file doubleclickedButton.cpp
- * @author your name (you@domain.com)
- * @brief 
+ * @author ldk
+ * @brief 双击事件按钮
  * @version 0.1
  * @date 2023-02-01
  * 

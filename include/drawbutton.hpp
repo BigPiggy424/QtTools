@@ -1,7 +1,7 @@
 /**
  * @file drawbutton.hpp
  * @author ldk
- * @brief 
+ * @brief 点击按钮以后可以用鼠标在指定区域绘图
  * @version 0.1
  * @date 2023-02-01
  * 

@@ -1,6 +1,6 @@
 /**
  * @file drawwidget.cpp
- * @author your name (you@domain.com)
+ * @author ldk
  * @brief 
  * @version 0.1
  * @date 2023-02-01
