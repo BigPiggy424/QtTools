@@ -1,0 +1,11 @@
+#include <connectbutton.hpp>
+#include <doubleclickedbutton.hpp>
+#include <drawbutton.hpp>
+#include <drawwidget.hpp>
+#include <graphicscontroller.hpp>
+#include <graphicsview.hpp>
+#include <imageplayer.hpp>
+#include <paintwidget.hpp>
+#include <toolbox.hpp>
+#include <toolpage.hpp>
+#include <toolpair.hpp>

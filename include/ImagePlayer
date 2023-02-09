@@ -1,0 +1,3 @@
+#include <graphicscontroller.hpp>
+#include <graphicsview.hpp>
+#include <imageplayer.hpp>

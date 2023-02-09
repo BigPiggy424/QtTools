@@ -1,0 +1,161 @@
+/**
+ * @file graphicscontroller.hpp
+ * @author ldk 
+ * @brief 图像显示控件
+ * @version 0.1
+ * @date 2023-02-01
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
+#ifndef _GRAPHICS_CONTROLLER_HPP_
+#define _GRAPHICS_CONTROLLER_HPP_
+
+#include <QImage>
+
+class QBoxLayout;
+class GraphicsView;
+
+/**
+ * @brief 
+ * 图像显示控件，封装了图像加载、缩放、平移\选点操作。
+ * 构造函数需要一个QBoxLayout* panel作为参数，
+ * 并调用panel->addWidget()将图像显示控件放置在其中
+ */
+class GraphicsController : public QObject
+{
+    Q_OBJECT
+
+public:
+    explicit GraphicsController
+    (
+        QBoxLayout* panel,
+        QWidget*    parent = nullptr,
+        double      minZoom = 0.005,
+        double      maxZoom = 200
+    );
+    explicit GraphicsController
+    (
+        QBoxLayout*   panel,
+        const QImage& image,
+        QWidget*      parent = nullptr,
+        double        minZoom = 0.005,
+        double        maxZoom = 200
+    );
+    ~GraphicsController();
+
+    void   Init(QBoxLayout* panel);
+    int    width() const noexcept;
+    int    height() const noexcept;
+    double getMinZoom() const noexcept;
+    double getMaxZoom() const noexcept;
+    void   setMinZoom(double minZoom);
+    void   setMaxZoom(double maxZoom);
+    void   DynamicMode(ushort _RefreshTime = 15);
+    void   StaticMode();
+    void   setImageStatically(const QImage& _image);
+    void   setImageStatically(const QString& _path);
+
+    /* 是否动态显示模式 */
+    inline
+    bool isDynamicMode() const noexcept { return m_bDynamically; }
+
+    /* 是否静态显示模式 */
+    inline
+    bool isStaticMode() const noexcept { return !m_bDynamically; }
+
+    /**
+     * @brief 获取当前图像
+     *
+     * @return const QImage& 获取当前图像
+     */
+    inline
+    QImage&& getImage() noexcept { return std::move(m_pImage); }
+
+    /**
+     * @brief 设置图像
+     *
+     * @param image 待展示图像的路径
+     */
+    inline
+    void setImage(const QImage& _image)
+    {
+        if (m_bDynamically)
+            setImageDynamically(_image);
+        else
+            setImageStatically(_image);
+    }
+
+    /**
+     * @brief 设置图像
+     *
+     * @param path 待展示图像的路径
+     */
+    inline
+    void setImage(const QString& _path)
+    {
+        if (m_bDynamically)
+            setImageDynamically(_path);
+        else
+            setImageStatically(_path);
+    }
+
+    /**
+     * @brief 动态设置图像
+     *
+     * @param image 待展示图像的路径
+     */
+    inline
+    void setImageDynamically(const QImage& _image) { m_pImage = _image; }
+
+    /**
+     * @brief 动态设置图像
+     *
+     * @param path 待展示图像的路径
+     */
+    inline
+    void setImageDynamically(const QString& _path) { m_pImage = QImage(_path); }
+
+    /**
+     * @brief 设置当前鼠标位置
+     *
+     * @param position 当前位置
+     */
+    inline
+    void setPosition(const QPoint& position) { m_Position = position; }
+    
+    /**
+     * @brief 获取当前鼠标位置
+     *
+     * @return QPoint&& 当前鼠标位置
+     */
+    inline
+    QPoint&& getPosition() const noexcept { return std::move(m_Position); }
+
+    /**
+     * @brief 获取当前像素点颜色
+     *
+     * @return QColor&& 当前像素点颜色
+     */
+    inline
+    QColor&& getPositionColor() const noexcept
+    {
+        if (!m_pImage.isNull())
+            return m_pImage.pixelColor(m_Position);
+        else
+            return QColor();
+    }
+    
+signals:
+    void mouseMoveEvent();
+
+private:
+    bool              m_bDynamically;    // 是否动态更新图像
+    GraphicsView*     m_pWidget;         // 用于操作绘图的控件
+    QImage            m_pImage;          // 当前显示图像
+    mutable QPoint    m_Position;        // 当前像素点颜色
+};
+
+
+#endif // !_GRAPHICS_CONTROLLER_HPP_
