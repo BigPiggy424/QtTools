@@ -15,8 +15,7 @@
 #include <QLabel>
 #include <QWidget>
 
-#include "graphicscontroller.hpp"
-
+class GraphicsController;
 class QHBoxLayout;
 class QVBoxLayout;
 
