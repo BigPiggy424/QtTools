@@ -85,19 +85,65 @@ void ImagePlayer::Init()
 	connect(m_pController, &GraphicsController::mouseMoveEvent, this, &ImagePlayer::setPosInfo);
 }
 
-int ImagePlayer::width() const noexcept { return m_pController->width(); }
-int ImagePlayer::height() const noexcept { return m_pController->height(); }
-double ImagePlayer::getMinZoom() const noexcept { return m_pController->getMinZoom(); }
-double ImagePlayer::getMaxZoom() const noexcept { return m_pController->getMaxZoom(); }
-void ImagePlayer::setMinZoom(double minZoom) { m_pController->setMinZoom(minZoom); }
-void ImagePlayer::setMaxZoom(double maxZoom) { m_pController->setMaxZoom(maxZoom); }
-void ImagePlayer::DynamicMode(ushort _RefreshTime) { m_pController->DynamicMode(_RefreshTime);}
-void ImagePlayer::StaticMode() { m_pController->StaticMode(); }
-bool ImagePlayer::isDynamicMode() const noexcept { return m_pController->isDynamicMode(); }
-bool ImagePlayer::isStaticMode() const noexcept { return m_pController->isStaticMode(); }
-QImage&& ImagePlayer::getImage() noexcept { return std::move(m_pController->getImage()); }
-void ImagePlayer::setImage(const QImage& image) { m_pController->setImage(image); }
-void ImagePlayer::setImage(const QString& path) { m_pController->setImage(path); }
+int ImagePlayer::width() const noexcept
+{
+    return m_pController->width();
+}
+
+int ImagePlayer::height() const noexcept
+{
+    return m_pController->height();
+}
+
+double ImagePlayer::getMinZoom() const noexcept
+{
+    return m_pController->getMinZoom();
+}
+
+double ImagePlayer::getMaxZoom() const noexcept
+{
+    return m_pController->getMaxZoom();
+}
+
+void ImagePlayer::setMinZoom(double minZoom)
+{
+    m_pController->setMinZoom(minZoom);
+}
+
+void ImagePlayer::setMaxZoom(double maxZoom)
+{
+    m_pController->setMaxZoom(maxZoom);
+}
+
+void ImagePlayer::DynamicMode(ushort _RefreshTime)
+{
+    m_pController->DynamicMode(_RefreshTime);
+}
+
+void ImagePlayer::StaticMode()
+{
+    m_pController->StaticMode();
+}
+
+bool ImagePlayer::isDynamicMode() const noexcept
+{
+    return m_pController->isDynamicMode();
+}
+
+bool ImagePlayer::isStaticMode() const noexcept
+{
+    return m_pController->isStaticMode();
+}
+
+QImage&& ImagePlayer::getImage() noexcept
+{
+    return m_pController->getImage();
+}
+
+void ImagePlayer::setImage(const QImage& image)
+{
+    m_pController->setImage(image);
+}
 
 void ImagePlayer::setPosInfo()
 {
