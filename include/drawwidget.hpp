@@ -14,7 +14,7 @@
 
 #include <QMouseEvent>
 
-#include "PaintWidget.hpp"
+#include "paintwidget.hpp"
 
 class DrawWidget : public PaintWidget
 {
