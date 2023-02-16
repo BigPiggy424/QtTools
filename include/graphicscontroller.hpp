@@ -45,17 +45,17 @@ public:
     );
     ~GraphicsController();
 
-    void   Init(QBoxLayout* panel);
-    int    width() const noexcept;
-    int    height() const noexcept;
-    double getMinZoom() const noexcept;
-    double getMaxZoom() const noexcept;
-    void   setMinZoom(double minZoom);
-    void   setMaxZoom(double maxZoom);
-    void   DynamicMode(ushort _RefreshTime = 15);
-    void   StaticMode();
-    void   setImageStatically(const QImage& _image);
-    void   setImageStatically(const QString& _path);
+    void    Init(QBoxLayout* panel);
+    int     width() const noexcept;
+    int     height() const noexcept;
+    double  getMinZoom() const noexcept;
+    double  getMaxZoom() const noexcept;
+    void    setMinZoom(double minZoom);
+    void    setMaxZoom(double maxZoom);
+    void    DynamicMode(ushort _RefreshTime = 15);
+    void    StaticMode();
+    void    setImageStatically(const QImage& _image);
+    void    setImageStatically(const QString& _path);
 
     /* 是否动态显示模式 */
     inline
@@ -93,13 +93,7 @@ public:
      * @param path 待展示图像的路径
      */
     inline
-    void setImage(const QString& _path)
-    {
-        if (m_bDynamically)
-            setImageDynamically(_path);
-        else
-            setImageStatically(_path);
-    }
+    void setImage(const QString& _path) { setImageStatically(_path); }
 
     /**
      * @brief 动态设置图像
@@ -108,14 +102,6 @@ public:
      */
     inline
     void setImageDynamically(const QImage& _image) { m_pImage = _image; }
-
-    /**
-     * @brief 动态设置图像
-     *
-     * @param path 待展示图像的路径
-     */
-    inline
-    void setImageDynamically(const QString& _path) { m_pImage = QImage(_path); }
 
     /**
      * @brief 设置当前鼠标位置
@@ -139,7 +125,7 @@ public:
      * @return QColor&& 当前像素点颜色
      */
     inline
-    QColor&& getPositionColor() const noexcept
+    QColor getPositionColor() const noexcept
     {
         if (!m_pImage.isNull())
             return m_pImage.pixelColor(m_Position);

@@ -132,7 +132,7 @@ void GraphicsController::StaticMode()
  */
 void GraphicsController::setImageStatically(const QImage& _image)
 {
-    m_pImage = _image;
+    m_pImage = _image.copy();
 	m_pWidget->setImage();
 }
 
