@@ -60,14 +60,14 @@ GraphicsView::~GraphicsView()
 void GraphicsView::setImage()
 {
     // 若没有图像则返回
-    if (m_pController->getImage().isNull())
+    if (m_pController->m_qtImage.isNull())
         return;
     // 若静态显示模式则按原尺寸显示,否则令图像自适应控件大小
-    const QImage&& image = m_pController->getImage();
     // 设置显示图像
-    m_pImageItem->setPixmap(QPixmap::fromImage(image));
+    m_pImageItem->setPixmap(QPixmap::fromImage(m_pController->m_qtImage));
     // 设置中心坐标
-    QPoint newCenter(image.width() / 2, image.height() / 2);
+    QPoint newCenter(m_pController->m_qtImage.width() / 2,
+                    m_pController->m_qtImage.height() / 2);
     centerOn(newCenter);
     show();
     update();
@@ -76,7 +76,7 @@ void GraphicsView::setImage()
 void GraphicsView::mousePressEvent(QMouseEvent* event)
 {
     // 若没有图像则不执行鼠标事件
-    if (m_pController->getImage().isNull())
+    if (m_pController->m_qtImage.isNull())
         return;
 
     if (event->button() == Qt::RightButton)
@@ -90,7 +90,7 @@ void GraphicsView::mousePressEvent(QMouseEvent* event)
 void GraphicsView::mouseMoveEvent(QMouseEvent* event)
 {
     // 若没有图像则不执行鼠标事件
-    if (m_pController->getImage().isNull())
+    if (m_pController->m_qtImage.isNull())
         return;
 
     if (m_bIsTranslate)
@@ -106,7 +106,7 @@ void GraphicsView::mouseMoveEvent(QMouseEvent* event)
 void GraphicsView::mouseReleaseEvent(QMouseEvent* event)
 {
     // 若没有图像则不执行鼠标事件
-    if (m_pController->getImage().isNull())
+    if (m_pController->m_qtImage.isNull())
         return;
 
     if (event->button() == Qt::RightButton)
@@ -116,7 +116,7 @@ void GraphicsView::mouseReleaseEvent(QMouseEvent* event)
 void GraphicsView::wheelEvent(QWheelEvent* event)
 {
     // 若没有图像则不执行鼠标事件
-    if (m_pController->getImage().isNull())
+    if (m_pController->m_qtImage.isNull())
         return;
     // 滚轮的滚动量
     QPoint scrollAmount = event->angleDelta();

@@ -16,7 +16,13 @@
 #include <QPainter>
 #include <QPaintEvent>
 
-#include "enum_drawshape.hpp"
+enum class DrawShape
+{
+    None,
+    Line,
+    Ellipse,
+    Rectangle
+};
 
 void drawGraphic(QPainter* painter, const DrawShape& shape, QPointF start, QPointF stop);
 

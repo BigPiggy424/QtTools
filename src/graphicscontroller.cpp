@@ -24,7 +24,7 @@ GraphicsController::GraphicsController
 	double      maxZoom
 )
 	: m_bDynamically(false)
-	, m_pImage(QImage())
+	, m_qtImage(QImage())
 	, m_pWidget(new GraphicsView(this, parent, minZoom, maxZoom))
 	, m_Position(QPoint())
 {
@@ -40,7 +40,7 @@ GraphicsController::GraphicsController
 	double        maxZoom
 )
 	: m_bDynamically(false)
-	, m_pImage(QImage(image))
+	, m_qtImage(QImage(image))
 	, m_pWidget(new GraphicsView(this, parent, minZoom, maxZoom))
 	, m_Position(QPoint())
 {
@@ -106,7 +106,7 @@ void GraphicsController::DynamicMode(ushort _RefreshTime)
 	// 开启动态刷新模式
 	m_pWidget->dynamicMode(_RefreshTime);
 	// 转换状态需要刷新图像，否则会报错
-	m_pImage = QImage();
+	m_qtImage = QImage();
 	m_bDynamically = true;
 }
 
@@ -122,7 +122,7 @@ void GraphicsController::StaticMode()
 	// 开启静态显示模式
 	m_pWidget->staticMode();
 	// 转换状态需要刷新图像，否则会报错
-	m_pImage = QImage();
+	m_qtImage = QImage();
 	m_bDynamically = false;
 }
 
@@ -133,7 +133,7 @@ void GraphicsController::StaticMode()
  */
 void GraphicsController::setImageStatically(const QImage& _image)
 {
-    m_pImage = _image.copy();
+    m_qtImage = _image.copy();
 	m_pWidget->setImage();
 }
 
@@ -146,6 +146,6 @@ void GraphicsController::setImageStatically(const QString& _path)
 {
 	QImageReader reader(_path);
 	reader.setDecideFormatFromContent(true);
-	m_pImage = reader.read();
+	m_qtImage = reader.read();
 	m_pWidget->setImage();
 }

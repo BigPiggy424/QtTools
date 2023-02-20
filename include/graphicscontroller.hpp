@@ -71,7 +71,7 @@ public:
      * @return const QImage& 获取当前图像
      */
     inline
-    QImage&& getImage() noexcept { return std::move(m_pImage); }
+    QImage&& getImage() noexcept { return std::move(m_qtImage); }
 
     /**
      * @brief 设置图像
@@ -101,7 +101,7 @@ public:
      * @param image 待展示图像的路径
      */
     inline
-    void setImageDynamically(const QImage& _image) { m_pImage = _image; }
+    void setImageDynamically(const QImage& _image) { m_qtImage = _image; }
 
     /**
      * @brief 设置当前鼠标位置
@@ -127,8 +127,8 @@ public:
     inline
     QColor getPositionColor() const noexcept
     {
-        if (!m_pImage.isNull())
-            return m_pImage.pixelColor(m_Position);
+        if (!m_qtImage.isNull())
+            return m_qtImage.pixelColor(m_Position);
         else
             return QColor();
     }
@@ -137,10 +137,11 @@ signals:
     void mouseMoveEvent();
 
 private:
-    bool              m_bDynamically;    // 是否动态更新图像
-    GraphicsView*     m_pWidget;         // 用于操作绘图的控件
-    QImage            m_pImage;          // 当前显示图像
-    mutable QPoint    m_Position;        // 当前像素点颜色
+    friend class        GraphicsView;
+    bool                m_bDynamically;    // 是否动态更新图像
+    GraphicsView*       m_pWidget;         // 用于操作绘图的控件
+    QImage              m_qtImage;          // 当前显示图像
+    mutable QPoint      m_Position;        // 当前像素点颜色
 };
 
 
