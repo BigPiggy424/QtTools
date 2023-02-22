@@ -50,7 +50,7 @@ GraphicsController::GraphicsController
 GraphicsController::~GraphicsController()
 {
 	StaticMode();
-	if (!m_pWidget)
+	if (m_pWidget)
 		m_pWidget->deleteLater();
 }
 
