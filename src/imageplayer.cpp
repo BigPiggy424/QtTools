@@ -53,7 +53,7 @@ ImagePlayer::ImagePlayer(QWidget* parent)
 
 ImagePlayer::~ImagePlayer()
 {
-	m_pController->deleteLater();
+	delete m_pController;
 	m_pImageLayout->deleteLater();
 	m_pBottomLayout->deleteLater();
 	m_pHSVLabel->deleteLater();
