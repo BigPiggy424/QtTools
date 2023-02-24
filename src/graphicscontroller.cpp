@@ -40,7 +40,7 @@ GraphicsController::GraphicsController
 	double        maxZoom
 )
 	: m_bDynamically(false)
-	, m_qtImage(QImage(image))
+	, m_qtImage(QImage(image.copy()))
 	, m_pWidget(new GraphicsView(this, parent, minZoom, maxZoom))
 	, m_Position(QPoint())
 {
@@ -50,8 +50,6 @@ GraphicsController::GraphicsController
 GraphicsController::~GraphicsController()
 {
 	StaticMode();
-	if (m_pWidget)
-		m_pWidget->deleteLater();
 }
 
 /**

@@ -140,7 +140,7 @@ private:
     friend class        GraphicsView;
     bool                m_bDynamically;    // 是否动态更新图像
     GraphicsView*       m_pWidget;         // 用于操作绘图的控件
-    QImage              m_qtImage;          // 当前显示图像
+    QImage              m_qtImage;         // 当前显示图像
     mutable QPoint      m_Position;        // 当前像素点颜色
 };
 
