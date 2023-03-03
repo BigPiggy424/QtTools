@@ -15,7 +15,7 @@ class ToolPage;
 
 using ToolPageList = std::map<QString, std::shared_ptr<ToolPage>>;
 
-class __declspec(dllexport) ToolBox : public QWidget
+class ToolBox : public QWidget
 {
 	Q_OBJECT
 
