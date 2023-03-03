@@ -19,7 +19,7 @@
 class QPushButton;
 class QHBoxLayout;
 
-typedef std::function<void(QPushButton*)> Function;
+using Function = std::function<void(QPushButton*)>;
 
 /**
  * @brief 

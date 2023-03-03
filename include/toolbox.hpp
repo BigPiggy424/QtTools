@@ -13,7 +13,7 @@ QT_END_NAMESPACE
 class QVBoxLayout;
 class ToolPage;
 
-typedef std::map<QString, std::shared_ptr<ToolPage>> ToolPageList;
+using ToolPageList = std::map<QString, std::shared_ptr<ToolPage>>;
 
 class __declspec(dllexport) ToolBox : public QWidget
 {
