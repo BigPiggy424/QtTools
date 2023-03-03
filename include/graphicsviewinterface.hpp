@@ -1,5 +1,5 @@
 /**
- * @file graphicscontroller.hpp
+ * @file graphicsviewinterface.hpp
  * @author ldk 
  * @brief 图像显示控件
  * @version 0.1
@@ -23,19 +23,19 @@ class GraphicsView;
  * 构造函数需要一个QBoxLayout* panel作为参数，
  * 并调用panel->addWidget()将图像显示控件放置在其中
  */
-class GraphicsController : public QObject
+class GraphicsViewInterface : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit GraphicsController
+    explicit GraphicsViewInterface
     (
         QBoxLayout* panel,
         QWidget*    parent = nullptr,
         double      minZoom = 0.005,
         double      maxZoom = 200
     );
-    explicit GraphicsController
+    explicit GraphicsViewInterface
     (
         QBoxLayout*   panel,
         const QImage& image,
@@ -43,7 +43,7 @@ public:
         double        minZoom = 0.005,
         double        maxZoom = 200
     );
-    ~GraphicsController();
+    ~GraphicsViewInterface();
 
     void    Init(QBoxLayout* panel);
     int     width() const noexcept;
@@ -56,6 +56,7 @@ public:
     void    StaticMode();
     void    setImageStatically(const QImage& _image);
     void    setImageStatically(const QString& _path);
+    QPoint  getIamgePosition(const QPoint& _pos);
 
     /* 是否动态显示模式 */
     inline

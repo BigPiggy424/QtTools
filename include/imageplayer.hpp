@@ -15,7 +15,7 @@
 #include <QLabel>
 #include <QWidget>
 
-class GraphicsController;
+class GraphicsViewInterface;
 class QHBoxLayout;
 class QVBoxLayout;
 
@@ -54,7 +54,7 @@ class ImagePlayer : public QWidget
     Q_OBJECT;
 
 public:
-    explicit ImagePlayer(QWidget* parent);
+    explicit ImagePlayer(QWidget* parent = nullptr);
     ~ImagePlayer();
 
     void Init();
@@ -72,17 +72,18 @@ public:
     QImage&& getImage() noexcept;
     void setImage(const QImage& image);
     void setImage(const QString& path);
+    QPoint getImagePosition(const QPoint& pos);
 
 public slots:
     void setPosInfo();
 
 private:
-    GraphicsController* m_pController;
-    QVBoxLayout*        m_pImageLayout;
-    QHBoxLayout*        m_pBottomLayout;
-    QLabel*             m_pPosLabel;
-    QLabel*             m_pRGBLabel;
-    QLabel*             m_pHSVLabel;
+    GraphicsViewInterface*  m_pController;
+    QVBoxLayout*            m_pImageLayout;
+    QHBoxLayout*            m_pBottomLayout;
+    QLabel*                 m_pPosLabel;
+    QLabel*                 m_pRGBLabel;
+    QLabel*                 m_pHSVLabel;
 };
 
 #endif // !_CYS_IMAGE_DISPLAY_IMAGE_PLAYER_HPP_

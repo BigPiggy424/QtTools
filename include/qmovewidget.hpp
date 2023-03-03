@@ -6,7 +6,7 @@
 #include <QMouseEvent>
 
 /* @brief 为QWidget添加鼠标拖拽功能 */
-#define QMoveWidget                                                           \
+#define QMoveWidget                                                          \
 private:                                                                     \
 void mousePressEvent(QMouseEvent *event)                                     \
 {                                                                            \

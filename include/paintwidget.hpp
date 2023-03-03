@@ -62,7 +62,7 @@ public:
     void setShape(const DrawShape& shape) { m_Shape = shape; }
 
     inline
-    QPointF&& startPoint() const noexcept { return std::move(m_startPoint); }
+    QPointF startPoint() const noexcept { return m_startPoint; }
 
     inline
     void setStartPoint(const QPointF& start) const { m_startPoint = start; }
@@ -71,7 +71,7 @@ public:
     void setStartPoint(qreal x, qreal y) const { m_startPoint = QPointF(x, y); }
 
     inline
-    QPointF&& stopPoint() const noexcept { return std::move(m_stopPoint); }
+    QPointF stopPoint() const noexcept { return m_stopPoint; }
 
     inline
     void setStopPoint(const QPointF& stop) const { m_stopPoint = stop; }

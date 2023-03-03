@@ -15,7 +15,7 @@
 #include <QTimer>
 #include <QGraphicsView>
 
-class GraphicsController;
+class GraphicsViewInterface;
 
 class GraphicsView : public QGraphicsView
 {
@@ -24,10 +24,10 @@ class GraphicsView : public QGraphicsView
 public:
 	explicit GraphicsView
     (
-        GraphicsController* controller,
-        QWidget*            parent = nullptr,
-        double              minZoom = 0.005,
-        double              maxZoom = 200
+        GraphicsViewInterface*  controller,
+        QWidget*                parent = nullptr,
+        double                  minZoom = 0.005,
+        double                  maxZoom = 200
     );
 	~GraphicsView();
 
@@ -63,7 +63,7 @@ private:
     QGraphicsScene*         m_pScene;            // 放置图像控件地场景
     QGraphicsPixmapItem*    m_pImageItem;        // 放置图像的控件
     QTimer*                 m_pTimer;            // 用于动态更新图像的计时器
-    GraphicsController*     m_pController;       // 接口控件
+    GraphicsViewInterface*  m_pController;       // 接口控件
 };
 
 #endif // !_GRAPHICS_VIEW_HPP_

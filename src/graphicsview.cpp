@@ -14,14 +14,14 @@
  */
 
 #include "graphicsview.hpp"
-#include "graphicscontroller.hpp"
+#include "graphicsviewinterface.hpp"
 
 GraphicsView::GraphicsView
 (
-    GraphicsController* controller,
-    QWidget*            parent,
-    double              minZoom,
-    double              maxZoom
+    GraphicsViewInterface*  controller,
+    QWidget*                parent,
+    double                  minZoom,
+    double                  maxZoom
 )
     : QGraphicsView(parent)
     , m_bIsTranslate(false)

@@ -12,7 +12,7 @@
 #include <QBoxLayout>
 
 #include "imageplayer.hpp"
-#include "graphicscontroller.hpp"
+#include "graphicsviewinterface.hpp"
 
 void setColorInfo(QColor color, QLabel* label, QColorType type)
 {
@@ -46,7 +46,7 @@ ImagePlayer::ImagePlayer(QWidget* parent)
 	, m_pRGBLabel(new QLabel(parent))
 	, m_pHSVLabel(new QLabel(parent))
 {
-	m_pController = new GraphicsController(m_pImageLayout, parent);
+	m_pController = new GraphicsViewInterface(m_pImageLayout, parent);
 	Init();
 	setLayout(m_pImageLayout);
 }
@@ -82,7 +82,7 @@ void ImagePlayer::Init()
 	m_pImageLayout->setStretch(0, 12);
 	m_pImageLayout->setStretch(1, 1);
 
-	connect(m_pController, &GraphicsController::mouseMoveEvent, this, &ImagePlayer::setPosInfo);
+	connect(m_pController, &GraphicsViewInterface::mouseMoveEvent, this, &ImagePlayer::setPosInfo);
 }
 
 int ImagePlayer::width() const noexcept
@@ -143,6 +143,11 @@ QImage&& ImagePlayer::getImage() noexcept
 void ImagePlayer::setImage(const QImage& image)
 {
     m_pController->setImage(image);
+}
+
+QPoint ImagePlayer::getImagePosition(const QPoint& pos)
+{
+    return m_pController->getIamgePosition(pos);
 }
 
 void ImagePlayer::setPosInfo()

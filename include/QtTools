@@ -2,7 +2,7 @@
 #include <doubleclickedbutton.hpp>
 #include <drawbutton.hpp>
 #include <drawwidget.hpp>
-#include <graphicscontroller.hpp>
+#include <graphicsviewinterface.hpp>
 #include <graphicsview.hpp>
 #include <imageplayer.hpp>
 #include <paintwidget.hpp>
