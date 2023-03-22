@@ -65,13 +65,12 @@ public:
     double getMaxZoom() const noexcept;
     void setMinZoom(double minZoom);
     void setMaxZoom(double maxZoom);
-    void DynamicMode(ushort _RefreshTime = 15);
+    void DynamicMode(int _RefreshTime = 15);
     void StaticMode();
     bool isDynamicMode() const noexcept;
     bool isStaticMode() const noexcept;
-    QImage&& getImage() noexcept;
+    const QImage& getImage() noexcept;
     void setImage(const QImage& image);
-    void setImage(const QString& path);
     QPoint getImagePosition(const QPoint& pos);
 
 public slots:

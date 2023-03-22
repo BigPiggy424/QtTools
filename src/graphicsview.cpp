@@ -1,7 +1,3 @@
-#include <QWidget>
-#include <QGraphicsPixmapItem>
-#include <qevent.h>
-
 /**
  * @file graphicsview.cpp
  * @author ldk
@@ -12,6 +8,10 @@
  * @copyright Copyright (c) 2023
  * 
  */
+
+#include <QWidget>
+#include <QGraphicsPixmapItem>
+#include <qevent.h>
 
 #include "graphicsview.hpp"
 #include "graphicsviewinterface.hpp"
@@ -46,7 +46,8 @@ GraphicsView::GraphicsView
 
     centerOn(0, 0);
 
-    connect(m_pTimer, &QTimer::timeout, [this] { setImage(); });
+    // connect(m_pTimer, &QTimer::timeout, [this] { setImage(); });
+    connect(m_pTimer, &QTimer::timeout, this, &GraphicsView::setImage);
 };
 
 GraphicsView::~GraphicsView()
@@ -62,15 +63,22 @@ void GraphicsView::setImage()
     // 若没有图像则返回
     if (m_pController->m_qtImage.isNull())
         return;
-    // 若静态显示模式则按原尺寸显示,否则令图像自适应控件大小
-    // 设置显示图像
-    m_pImageItem->setPixmap(QPixmap::fromImage(m_pController->m_qtImage));
-    // 设置中心坐标
-    QPoint newCenter(m_pController->m_qtImage.width() / 2,
-                    m_pController->m_qtImage.height() / 2);
-    centerOn(newCenter);
-    show();
-    update();
+        
+    try
+    {
+        // 设置显示图像
+        m_pImageItem->setPixmap(QPixmap::fromImage(m_pController->m_qtImage));
+        // 设置中心坐标
+        QPoint newCenter(m_pController->m_qtImage.width() / 2,
+                        m_pController->m_qtImage.height() / 2);
+        centerOn(newCenter);
+        show();
+        update();
+    }
+    catch (const std::exception& e)
+    {
+        throw(e);
+    }
 }
 
 void GraphicsView::mousePressEvent(QMouseEvent* event)

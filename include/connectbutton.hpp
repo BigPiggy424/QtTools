@@ -53,7 +53,6 @@ private:
 
 	inline
 	const char* Icon() { return m_bConnected ? ICON_CONNECTED : ICON_DISCONNECTED; }
-
 };
 
 #endif // !_CONNECT_BUTTON_HPP_

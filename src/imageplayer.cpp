@@ -115,7 +115,7 @@ void ImagePlayer::setMaxZoom(double maxZoom)
     m_pController->setMaxZoom(maxZoom);
 }
 
-void ImagePlayer::DynamicMode(ushort _RefreshTime)
+void ImagePlayer::DynamicMode(int _RefreshTime)
 {
     m_pController->DynamicMode(_RefreshTime);
 }
@@ -135,7 +135,7 @@ bool ImagePlayer::isStaticMode() const noexcept
     return m_pController->isStaticMode();
 }
 
-QImage&& ImagePlayer::getImage() noexcept
+const QImage& ImagePlayer::getImage() noexcept
 {
     return m_pController->getImage();
 }

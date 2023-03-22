@@ -40,7 +40,7 @@ public:
     inline void   setMinZoom(double minZoom) { m_dMinZoom = minZoom; }
     inline void   setMaxZoom(double maxZoom) { m_dMaxZoom = maxZoom; }
     inline QPoint getMousePosition() { return m_qtLastMousePos; }
-    inline void   dynamicMode(ushort _time) { m_pTimer->start(_time); }
+    inline void   dynamicMode(int _time) { m_pTimer->start(_time); }
     inline void   staticMode() { m_pTimer->stop(); }
 
 protected:

@@ -98,7 +98,7 @@ double GraphicsViewInterface::getMaxZoom() const noexcept
  * @brief 设置图像显示模式为动态更新模式
  * @remarks 调用DynamicMode显示完毕以后需要调用StaticMode改回静态显示模式，否则会报错
  */
-void GraphicsViewInterface::DynamicMode(ushort _RefreshTime)
+void GraphicsViewInterface::DynamicMode(int _RefreshTime)
 {
 	// 若已经设为动态更新模式则不进行操作
 	if (isDynamicMode())
@@ -107,7 +107,7 @@ void GraphicsViewInterface::DynamicMode(ushort _RefreshTime)
 	m_pWidget->dynamicMode(_RefreshTime);
 	// 转换状态需要刷新图像，否则会报错
 	m_qtImage = QImage();
-	m_bDynamically = true;
+	m_bDynamically.store(true, std::memory_order_release);
 }
 
 /**
@@ -123,7 +123,7 @@ void GraphicsViewInterface::StaticMode()
 	m_pWidget->staticMode();
 	// 转换状态需要刷新图像，否则会报错
 	m_qtImage = QImage();
-	m_bDynamically = false;
+	m_bDynamically.store(false, std::memory_order_release);
 }
 
 /**

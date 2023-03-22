@@ -12,6 +12,8 @@
 #ifndef _GRAPHICS_CONTROLLER_HPP_
 #define _GRAPHICS_CONTROLLER_HPP_
 
+#include <atomic>
+
 #include <QImage>
 
 class QBoxLayout;
@@ -52,7 +54,7 @@ public:
     double  getMaxZoom() const noexcept;
     void    setMinZoom(double minZoom);
     void    setMaxZoom(double maxZoom);
-    void    DynamicMode(ushort _RefreshTime = 15);
+    void    DynamicMode(int _RefreshTime = 15);
     void    StaticMode();
     void    setImageStatically(const QImage& _image);
     void    setImageStatically(const QString& _path);
@@ -60,11 +62,15 @@ public:
 
     /* 是否动态显示模式 */
     inline
-    bool isDynamicMode() const noexcept { return m_bDynamically; }
+    bool isDynamicMode() const noexcept {
+        return m_bDynamically.load(std::memory_order_acquire);
+    }
 
     /* 是否静态显示模式 */
     inline
-    bool isStaticMode() const noexcept { return !m_bDynamically; }
+    bool isStaticMode() const noexcept {
+        return !m_bDynamically.load(std::memory_order_acquire);
+    }
 
     /**
      * @brief 获取当前图像
@@ -72,7 +78,7 @@ public:
      * @return const QImage& 获取当前图像
      */
     inline
-    QImage&& getImage() noexcept { return std::move(m_qtImage); }
+    const QImage& getImage() noexcept { return m_qtImage; }
 
     /**
      * @brief 设置图像
@@ -82,7 +88,7 @@ public:
     inline
     void setImage(const QImage& _image)
     {
-        if (m_bDynamically)
+        if (m_bDynamically.load(std::memory_order_acquire))
             setImageDynamically(_image);
         else
             setImageStatically(_image);
@@ -139,7 +145,7 @@ signals:
 
 private:
     friend class        GraphicsView;
-    bool                m_bDynamically;    // 是否动态更新图像
+    std::atomic_bool    m_bDynamically;    // 是否动态更新图像
     GraphicsView*       m_pWidget;         // 用于操作绘图的控件
     QImage              m_qtImage;         // 当前显示图像
     mutable QPoint      m_Position;        // 当前像素点颜色
