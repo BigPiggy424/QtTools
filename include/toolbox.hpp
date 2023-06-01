@@ -22,10 +22,11 @@ class ToolBox : public QWidget
 public:
 	explicit ToolBox(QWidget* parent = nullptr);
 	~ToolBox();
-	void addPage(const QString& title);
-	void addWidget(const QString& title, QWidget* widget);
-	void removePage(const QString& title);
-	void removeWidget(const QString& title, QWidget* widget);
+	QWidget* getWidget(const QString& category, const QString& name) const;
+	bool addPage(const QString& category);
+	bool addWidget(const QString& category, const QString& name, QWidget* widget);
+	void removePage(const QString& category);
+	void removeWidget(const QString& category, const QString& name);
 	void setContentsMargins(const QMargins& margins);
 	void setContentsMargins(int left, int top, int right, int bottom);
 	void setSpacing(int spacing);

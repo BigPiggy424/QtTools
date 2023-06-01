@@ -23,16 +23,10 @@ class DrawWidget : public PaintWidget
 public:
     explicit DrawWidget
     (
-        QWidget* parent = nullptr,
+        QWidget* parent,
         DrawShape shape = DrawShape::None,
         const QColor& color = Qt::black,
         qreal penSize = 1
-    );
-    explicit DrawWidget
-    (
-        QWidget* parent,
-        DrawShape shape = DrawShape::None,
-        const QPen& pen = QPen(Qt::black, 1)
     );
     ~DrawWidget() = default;
 

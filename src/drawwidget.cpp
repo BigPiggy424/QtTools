@@ -22,17 +22,6 @@ DrawWidget::DrawWidget
     , m_isPressed(false)
 {}
 
-DrawWidget::DrawWidget
-(
-    QWidget* parent,
-    DrawShape shape,
-    const QPen& pen
-)
-    : PaintWidget{ parent, shape, pen }
-    , m_isPressed(false)
-{}
-
-
 void DrawWidget::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton)
@@ -44,11 +33,10 @@ void DrawWidget::mousePressEvent(QMouseEvent *event)
 
 void DrawWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    if (m_isPressed)
-    {
-        setStopPoint(event->pos());
-        update();
-    }
+    if (!m_isPressed)
+        return;
+    setStopPoint(event->pos());
+    update();
 }
 
 void DrawWidget::mouseReleaseEvent(QMouseEvent *event)

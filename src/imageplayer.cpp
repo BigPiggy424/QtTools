@@ -39,21 +39,21 @@ void setColorInfo(QColor color, QLabel* label, QColorType type)
 
 ImagePlayer::ImagePlayer(QWidget* parent)
 	: QWidget(parent)
-	, m_pController(nullptr)
+	, m_pInterface(nullptr)
 	, m_pImageLayout(new QVBoxLayout(parent))
 	, m_pBottomLayout(new QHBoxLayout(parent))
 	, m_pPosLabel(new QLabel(parent))
 	, m_pRGBLabel(new QLabel(parent))
 	, m_pHSVLabel(new QLabel(parent))
 {
-	m_pController = new GraphicsViewInterface(m_pImageLayout, parent);
+	m_pInterface = new GraphicsViewInterface(m_pImageLayout, parent);
 	Init();
 	setLayout(m_pImageLayout);
 }
 
 ImagePlayer::~ImagePlayer()
 {
-	delete m_pController;
+	delete m_pInterface;
 	m_pImageLayout->deleteLater();
 	m_pBottomLayout->deleteLater();
 	m_pHSVLabel->deleteLater();
@@ -82,77 +82,77 @@ void ImagePlayer::Init()
 	m_pImageLayout->setStretch(0, 12);
 	m_pImageLayout->setStretch(1, 1);
 
-	connect(m_pController, &GraphicsViewInterface::mouseMoveEvent, this, &ImagePlayer::setPosInfo);
+	connect(m_pInterface, &GraphicsViewInterface::mouseMoveEvent, this, &ImagePlayer::setPosInfo);
 }
 
 int ImagePlayer::width() const noexcept
 {
-    return m_pController->width();
+    return m_pInterface->width();
 }
 
 int ImagePlayer::height() const noexcept
 {
-    return m_pController->height();
+    return m_pInterface->height();
 }
 
 double ImagePlayer::getMinZoom() const noexcept
 {
-    return m_pController->getMinZoom();
+    return m_pInterface->getMinZoom();
 }
 
 double ImagePlayer::getMaxZoom() const noexcept
 {
-    return m_pController->getMaxZoom();
+    return m_pInterface->getMaxZoom();
 }
 
 void ImagePlayer::setMinZoom(double minZoom)
 {
-    m_pController->setMinZoom(minZoom);
+    m_pInterface->setMinZoom(minZoom);
 }
 
 void ImagePlayer::setMaxZoom(double maxZoom)
 {
-    m_pController->setMaxZoom(maxZoom);
+    m_pInterface->setMaxZoom(maxZoom);
 }
 
 void ImagePlayer::DynamicMode(int _RefreshTime)
 {
-    m_pController->DynamicMode(_RefreshTime);
+    m_pInterface->DynamicMode(_RefreshTime);
 }
 
 void ImagePlayer::StaticMode()
 {
-    m_pController->StaticMode();
+    m_pInterface->StaticMode();
 }
 
 bool ImagePlayer::isDynamicMode() const noexcept
 {
-    return m_pController->isDynamicMode();
+    return m_pInterface->isDynamicMode();
 }
 
 bool ImagePlayer::isStaticMode() const noexcept
 {
-    return m_pController->isStaticMode();
+    return m_pInterface->isStaticMode();
 }
 
 const QImage& ImagePlayer::getImage() noexcept
 {
-    return m_pController->getImage();
+    return m_pInterface->getImage();
 }
 
 void ImagePlayer::setImage(const QImage& image)
 {
-    m_pController->setImage(image);
+    m_pInterface->setImage(image);
 }
 
 QPoint ImagePlayer::getImagePosition(const QPoint& pos)
 {
-    return m_pController->getIamgePosition(pos);
+    return m_pInterface->getIamgePosition(pos);
 }
 
 void ImagePlayer::setPosInfo()
 {
-	setPositionInfo(m_pController->getPosition(), m_pPosLabel);
-	setColorInfo(m_pController->getPositionColor(), m_pRGBLabel);
-	setColorInfo(m_pController->getPositionColor(), m_pHSVLabel, QColorType::HSV);
+	setPositionInfo(m_pInterface->getPosition(), m_pPosLabel);
+	setColorInfo(m_pInterface->getPositionColor(), m_pRGBLabel);
+	setColorInfo(m_pInterface->getPositionColor(), m_pHSVLabel, QColorType::HSV);
 }

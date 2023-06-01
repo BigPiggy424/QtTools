@@ -35,34 +35,44 @@ ToolBox::~ToolBox()
 	delete ui;
 }
 
-void ToolBox::addPage(const QString& title)
+QWidget* ToolBox::getWidget(const QString &category, const QString &name) const
 {
-	m_mapToolPageList.emplace(std::make_pair(title, std::make_shared<ToolPage>(title, this)));
-	m_pContentVBoxLayout->addWidget(m_mapToolPageList.at(title).get());
+	if (m_mapToolPageList.find(category) == m_mapToolPageList.end())
+		return nullptr;
+	return m_mapToolPageList.at(category)->getWidget(name);
 }
 
-void ToolBox::addWidget(const QString& title, QWidget* widget)
+bool ToolBox::addPage(const QString& category)
 {
-	if (m_mapToolPageList.find(title) == m_mapToolPageList.end())
-		addPage(title);
-	std::shared_ptr<ToolPage> page = m_mapToolPageList.at(title);
-	page->addWidget(widget);
+	if (m_mapToolPageList.find(category) != m_mapToolPageList.end())
+		return false;
+	m_mapToolPageList.emplace(category, std::make_shared<ToolPage>(category, this));
+	m_pContentVBoxLayout->addWidget(m_mapToolPageList.at(category).get());
+	return true;
 }
 
-void ToolBox::removePage(const QString& title)
+bool ToolBox::addWidget(const QString& category, const QString& name, QWidget* widget)
 {
-	if (m_mapToolPageList.find(title) == m_mapToolPageList.end())
+	if (m_mapToolPageList.find(category) == m_mapToolPageList.end())
+		addPage(category);
+	std::shared_ptr<ToolPage> page = m_mapToolPageList.at(category);
+	return page->addWidget(name, widget);
+}
+
+void ToolBox::removePage(const QString& category)
+{
+	if (m_mapToolPageList.find(category) == m_mapToolPageList.end())
 		return;
-	m_pContentVBoxLayout->removeWidget(m_mapToolPageList.at(title).get());
-	m_mapToolPageList.erase(title);
+	m_pContentVBoxLayout->removeWidget(m_mapToolPageList.at(category).get());
+	m_mapToolPageList.erase(category);
 }
 
-void ToolBox::removeWidget(const QString& title, QWidget* widget)
+void ToolBox::removeWidget(const QString& category, const QString& name)
 {
-	if (m_mapToolPageList.find(title) == m_mapToolPageList.end())
+	if (m_mapToolPageList.find(category) == m_mapToolPageList.end())
 		return;
-	std::shared_ptr<ToolPage> page = m_mapToolPageList.at(title);
-	page->removeWidget(widget);
+	std::shared_ptr<ToolPage> page = m_mapToolPageList.at(category);
+	page->removeWidget(name);
 }
 
 void ToolBox::setContentsMargins(const QMargins &margins)

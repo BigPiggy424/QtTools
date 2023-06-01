@@ -22,13 +22,13 @@ class DrawButton : public QPushButton
 	Q_OBJECT
 
 public:
-	DrawButton(QWidget* parent);
+	DrawButton(QWidget* parent, QWidget* canvas = nullptr);
 	~DrawButton();
 
 	inline const QPen& getPen() const { return m_Pen; }
 	inline void setPen(const QPen& pen) { m_Pen = pen; }
 	inline void setPen(const QColor& color, qreal penSize) { m_Pen = QPen(color, penSize); }
-	inline void setCanvas(QWidget* canvas) { m_Canvas = canvas; }
+	inline void setCanvas(QWidget* canvas) { m_pCanvas = canvas; }
 	inline bool drawing() { return m_pDrawWidget != nullptr; }
 
 public slots:
@@ -37,7 +37,7 @@ public slots:
 	void startDraw(QWidget* canvas);
 	void finishDraw();
 
-	inline void startDraw() { startDraw(m_Canvas); }
+	inline void startDraw() { startDraw(m_pCanvas); }
 
 	inline const QPointF& getStartPoint() const noexcept { return m_start; }
 	inline const QPointF& getStopPoint() const noexcept { return m_stop; }
@@ -45,10 +45,12 @@ public slots:
 protected slots:
 	void setPoints();
 
+protected:
+	QWidget*    m_pCanvas;
+
 private:
 	QPen        m_Pen;
 	DrawWidget* m_pDrawWidget;
-	QWidget*    m_Canvas;
 	QPointF     m_start;
 	QPointF     m_stop;
 };

@@ -25,33 +25,33 @@ template <typename Widget>
 class ToolPair : public QWidget
 {
 public:
-	inline explicit ToolPair(QWidget* parent);
-	inline explicit ToolPair(const QString& text, QWidget* parent);
-	inline explicit ToolPair(const QString& text, Widget* widget, QWidget* parent);
-	inline ~ToolPair();
+	explicit ToolPair(QWidget* parent);
+	explicit ToolPair(const QString& text, QWidget* parent);
+	explicit ToolPair(const QString& text, Widget* widget, QWidget* parent);
+	~ToolPair();
 
-	inline QString key() const noexcept;
-	inline Widget* getValueWidget();
+	QString key() const noexcept;
+	Widget* getValueWidget();
 
-	inline void setKey(const QString& text);
-	inline void setKeyAlignment(Qt::Alignment alignment);
-	inline void setValueWidget(const Widget& widget);
-	inline void setFixedSize(const QSize& size);
-	inline void setFixedSize(int w, int h);
-	inline void setFixedWidth(int w);
-	inline void setFixedHeight(int h);
-	inline void setMinimumSize(const QSize& size);
-	inline void setMinimumSize(int w, int h);
-	inline void setMinimumWidth(int w);
-	inline void setMinimumHeight(int h);
-	inline void setMaxiumSize(const QSize& size);
-	inline void setMaxiumSize(int w, int h);
-	inline void setMaxiumWidth(int w);
-	inline void setMaxiumHeight(int h);
-	inline void setStretch(int firstStretch = 1, int secondStretch = 1);
+	void setKey(const QString& text);
+	void setKeyAlignment(Qt::Alignment alignment);
+	void setValueWidget(const Widget& widget);
+	void setFixedSize(const QSize& size);
+	void setFixedSize(int w, int h);
+	void setFixedWidth(int w);
+	void setFixedHeight(int h);
+	void setMinimumSize(const QSize& size);
+	void setMinimumSize(int w, int h);
+	void setMinimumWidth(int w);
+	void setMinimumHeight(int h);
+	void setMaxiumSize(const QSize& size);
+	void setMaxiumSize(int w, int h);
+	void setMaxiumWidth(int w);
+	void setMaxiumHeight(int h);
+	void setStretch(int firstStretch = 1, int secondStretch = 1);
 
-	inline QString title() const noexcept { return key(); }
-	inline void setTitle(const QString& title) { setKey(title); }
+	QString title() const noexcept { return key(); }
+	void setTitle(const QString& title) { setKey(title); }
 
 private:
 	static constexpr const char* DefaultTitle { "ToolPair" };
@@ -61,11 +61,11 @@ private:
 	QHBoxLayout* m_pHLayout;
 	mutable std::shared_mutex m_Mutex;
 
-	inline void Init(const QString& text);
+	void Init(const QString& text);
 };
 
 template <typename Widget>
-inline ToolPair<Widget>::ToolPair(QWidget* parent)
+ToolPair<Widget>::ToolPair(QWidget* parent)
 	: QWidget(parent)
 	, m_pKey(new QLabel(parent))
 	, m_pWidget(new Widget(parent))
@@ -76,7 +76,7 @@ inline ToolPair<Widget>::ToolPair(QWidget* parent)
 }
 
 template <typename Widget>
-inline ToolPair<Widget>::ToolPair(const QString& text, QWidget* parent)
+ToolPair<Widget>::ToolPair(const QString& text, QWidget* parent)
 	: QWidget(parent)
 	, m_pKey(new QLabel(parent))
 	, m_pWidget(new Widget(parent))
@@ -87,7 +87,7 @@ inline ToolPair<Widget>::ToolPair(const QString& text, QWidget* parent)
 }
 
 template <typename Widget>
-inline ToolPair<Widget>::ToolPair(const QString& text, Widget* widget, QWidget* parent)
+ToolPair<Widget>::ToolPair(const QString& text, Widget* widget, QWidget* parent)
 	: QWidget(parent)
 	, m_pKey(new QLabel(parent))
 	, m_pWidget(widget)
@@ -98,7 +98,7 @@ inline ToolPair<Widget>::ToolPair(const QString& text, Widget* widget, QWidget* 
 }
 
 template <typename Widget>
-inline ToolPair<Widget>::~ToolPair()
+ToolPair<Widget>::~ToolPair()
 {
 	WriteLock(m_Mutex);
 	if (m_pHLayout)
@@ -110,35 +110,35 @@ inline ToolPair<Widget>::~ToolPair()
 }
 
 template <typename Widget>
-inline QString ToolPair<Widget>::key() const noexcept
+QString ToolPair<Widget>::key() const noexcept
 {
 	ReadLock(m_Mutex);
 	return m_pKey->text();
 }
 
 template <typename Widget>
-inline Widget* ToolPair<Widget>::getValueWidget()
+Widget* ToolPair<Widget>::getValueWidget()
 {
 	ReadLock(m_Mutex);
 	return m_pWidget;
 }
 
 template <typename Widget>
-inline void ToolPair<Widget>::setKey(const QString& text)
+void ToolPair<Widget>::setKey(const QString& text)
 {
 	WriteLock(m_Mutex);
 	m_pKey->setText(text);
 }
 
 template <typename Widget>
-inline void ToolPair<Widget>::setKeyAlignment(Qt::Alignment alignment)
+void ToolPair<Widget>::setKeyAlignment(Qt::Alignment alignment)
 {
 	WriteLock(m_Mutex);
 	m_pKey->setAlignment(alignment);
 }
 
 template <typename Widget>
-inline void ToolPair<Widget>::setValueWidget(const Widget& widget)
+void ToolPair<Widget>::setValueWidget(const Widget& widget)
 {
 	WriteLock(m_Mutex);
 	if (m_pWidget)
@@ -147,7 +147,7 @@ inline void ToolPair<Widget>::setValueWidget(const Widget& widget)
 }
 
 template <typename Widget>
-inline void ToolPair<Widget>::setFixedSize(const QSize& size)
+void ToolPair<Widget>::setFixedSize(const QSize& size)
 {
 	WriteLock(m_Mutex);
 	m_pKey->setFixedSize(size);
@@ -155,7 +155,7 @@ inline void ToolPair<Widget>::setFixedSize(const QSize& size)
 }
 
 template <typename Widget>
-inline void ToolPair<Widget>::setFixedSize(int w, int h)
+void ToolPair<Widget>::setFixedSize(int w, int h)
 {
 	WriteLock(m_Mutex);
 	m_pKey->setFixedSize(w, h);
@@ -163,7 +163,7 @@ inline void ToolPair<Widget>::setFixedSize(int w, int h)
 }
 
 template <typename Widget>
-inline void ToolPair<Widget>::setFixedWidth(int w)
+void ToolPair<Widget>::setFixedWidth(int w)
 {
 	WriteLock(m_Mutex);
 	m_pKey->setFixedWidth(w);
@@ -171,7 +171,7 @@ inline void ToolPair<Widget>::setFixedWidth(int w)
 }
 
 template <typename Widget>
-inline void ToolPair<Widget>::setFixedHeight(int h)
+void ToolPair<Widget>::setFixedHeight(int h)
 {
 	WriteLock(m_Mutex);
 	m_pKey->setFixedHeight(h);
@@ -179,7 +179,7 @@ inline void ToolPair<Widget>::setFixedHeight(int h)
 }
 
 template <typename Widget>
-inline void ToolPair<Widget>::setMinimumSize(const QSize &size)
+void ToolPair<Widget>::setMinimumSize(const QSize &size)
 {
 	WriteLock(m_Mutex);
 	m_pKey->setMinimumSize(size);
@@ -187,7 +187,7 @@ inline void ToolPair<Widget>::setMinimumSize(const QSize &size)
 }
 
 template <typename Widget>
-inline void ToolPair<Widget>::setMinimumSize(int w, int h)
+void ToolPair<Widget>::setMinimumSize(int w, int h)
 {
 	WriteLock(m_Mutex);
 	m_pKey->setMinimumSize(w, h);
@@ -195,7 +195,7 @@ inline void ToolPair<Widget>::setMinimumSize(int w, int h)
 }
 
 template <typename Widget>
-inline void ToolPair<Widget>::setMinimumWidth(int w)
+void ToolPair<Widget>::setMinimumWidth(int w)
 {
 	WriteLock(m_Mutex);
 	m_pKey->setMinimumWidth(w);
@@ -203,7 +203,7 @@ inline void ToolPair<Widget>::setMinimumWidth(int w)
 }
 
 template <typename Widget>
-inline void ToolPair<Widget>::setMinimumHeight(int h)
+void ToolPair<Widget>::setMinimumHeight(int h)
 {
 	WriteLock(m_Mutex);
 	m_pKey->setMinimumHeight(h);
@@ -211,7 +211,7 @@ inline void ToolPair<Widget>::setMinimumHeight(int h)
 }
 
 template <typename Widget>
-inline void ToolPair<Widget>::setMaxiumSize(const QSize &size)
+void ToolPair<Widget>::setMaxiumSize(const QSize &size)
 {
 	WriteLock(m_Mutex);
 	m_pKey->setMaxiumSize(size);
@@ -219,7 +219,7 @@ inline void ToolPair<Widget>::setMaxiumSize(const QSize &size)
 }
 
 template <typename Widget>
-inline void ToolPair<Widget>::setMaxiumSize(int w, int h)
+void ToolPair<Widget>::setMaxiumSize(int w, int h)
 {
 	WriteLock(m_Mutex);
 	m_pKey->setMaxiumSize(w, h);
@@ -227,7 +227,7 @@ inline void ToolPair<Widget>::setMaxiumSize(int w, int h)
 }
 
 template <typename Widget>
-inline void ToolPair<Widget>::setMaxiumWidth(int w)
+void ToolPair<Widget>::setMaxiumWidth(int w)
 {
 	WriteLock(m_Mutex);
 	m_pKey->setMaxiumWidth(w);
@@ -235,7 +235,7 @@ inline void ToolPair<Widget>::setMaxiumWidth(int w)
 }
 
 template <typename Widget>
-inline void ToolPair<Widget>::setMaxiumHeight(int h)
+void ToolPair<Widget>::setMaxiumHeight(int h)
 {
 	WriteLock(m_Mutex);
 	m_pKey->setMaxiumHeight(h);
@@ -243,7 +243,7 @@ inline void ToolPair<Widget>::setMaxiumHeight(int h)
 }
 
 template <typename Widget>
-inline void ToolPair<Widget>::setStretch(int firstStretch, int secondStretch)
+void ToolPair<Widget>::setStretch(int firstStretch, int secondStretch)
 {
 	WriteLock(m_Mutex);
 	m_pHLayout->setStretch(0, firstStretch);
@@ -251,7 +251,7 @@ inline void ToolPair<Widget>::setStretch(int firstStretch, int secondStretch)
 }
 
 template <typename Widget>
-inline void ToolPair<Widget>::Init(const QString& text)
+void ToolPair<Widget>::Init(const QString& text)
 {
 	WriteLock(m_Mutex);
 	m_pKey->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

@@ -10,6 +10,7 @@ ToolPage::ToolPage(const QString& title, QWidget *parent)
     , m_bIsExpanded(true)
     , m_pLabel(new QLabel())
     , m_pLayout(nullptr)
+    , m_widgetMap{}
 {
 	ui->setupUi(this);
 
@@ -47,13 +48,26 @@ void ToolPage::setDoubleClickedEvent(std::function<void(QPushButton*)> _Func)
     ui->pushButtonFold->setDoubleClickedEvent(_Func);
 }
 
-void ToolPage::addWidget(QWidget* widget)
+QWidget* ToolPage::getWidget(const QString& name) const
 {
-    ui->verticalLayoutContent->addWidget(widget);
+    if (m_widgetMap.find(name) == m_widgetMap.end())
+        return nullptr;
+    return m_widgetMap.at(name);
 }
 
-void ToolPage::removeWidget(QWidget* widget)
+bool ToolPage::addWidget(const QString& name, QWidget* widget)
 {
+    if (m_widgetMap.find(name) != m_widgetMap.end())
+        return false;
+    ui->verticalLayoutContent->addWidget(widget);
+    m_widgetMap[name] = widget;
+    return true;
+}
+
+void ToolPage::removeWidget(const QString &name)
+{
+    QWidget* widget = m_widgetMap[name];
+    m_widgetMap.erase(name);
     ui->verticalLayoutContent->removeWidget(widget);
 }
 

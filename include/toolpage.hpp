@@ -2,6 +2,7 @@
 #define _TOOL_PAGE_HPP_
 
 #include <functional>
+#include <unordered_map>
 
 #include <QWidget>
 
@@ -24,8 +25,9 @@ public:
 	void setDoubleClickedEvent(std::function<void(QPushButton*)> _Func);
 
 public slots:
-	void addWidget(QWidget* widget);
-	void removeWidget(QWidget* widget);
+	QWidget* getWidget(const QString& name) const;
+	bool addWidget(const QString& name, QWidget* widget);
+	void removeWidget(const QString& name);
 	void expand();
 	void collapse();
 
@@ -37,6 +39,7 @@ private:
 	bool               m_bIsExpanded;
 	QLabel*            m_pLabel;
 	QHBoxLayout*       m_pLayout;
+	std::unordered_map<QString, QWidget*> m_widgetMap;
 };
 
 #endif // !_TOOL_PAGE_HPP_

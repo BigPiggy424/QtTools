@@ -12,10 +12,10 @@
 #include "drawbutton.hpp"
 #include "drawwidget.hpp"
 
-DrawButton::DrawButton(QWidget *parent)
+DrawButton::DrawButton(QWidget* parent, QWidget* canvas)
 	: QPushButton(parent)
     , m_pDrawWidget(nullptr)
-    , m_Canvas(parent)
+    , m_pCanvas(canvas == nullptr ? parent : canvas)
     , m_start(0, 0)
     , m_stop(0, 0)
 {}
@@ -57,7 +57,7 @@ void DrawButton::finishDraw()
     if (m_pDrawWidget == nullptr)
         return;
     m_pDrawWidget->close();
-    m_pDrawWidget->deleteLater();
+    delete m_pDrawWidget;
     m_pDrawWidget = nullptr;
 }
 

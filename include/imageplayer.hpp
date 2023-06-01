@@ -77,7 +77,7 @@ public slots:
     void setPosInfo();
 
 private:
-    GraphicsViewInterface*  m_pController;
+    GraphicsViewInterface*  m_pInterface;
     QVBoxLayout*            m_pImageLayout;
     QHBoxLayout*            m_pBottomLayout;
     QLabel*                 m_pPosLabel;
