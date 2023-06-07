@@ -1,5 +1,5 @@
-﻿#ifndef QT_LOGGER_HPP
-#define QT_LOGGER_HPP
+﻿#ifndef _QT_LOGGER_HPP_
+#define _QT_LOGGER_HPP_
 
 #pragma execution_character_set("utf-8")
 
@@ -52,11 +52,12 @@ static constexpr int TIME_BUFFER_SIZE{ DATE_SIZE + TIME_SIZE };
 
 enum class LOGLEVEL
 {
-	NONE	= 0x3f3f3f3f,
-	ERROR	= 0,
-	WARNING	= 1,
-	INFO	= 2,
-	DEBUG	= 3
+	NONE	= 0b0000,
+	ERROR	= 0b0001,
+	WARNING	= 0b0010,
+	INFO	= 0b0100,
+	DEBUG	= 0b1000,
+	ALL		= 0b1111
 };
 
 enum class LOGTARGET
@@ -224,4 +225,4 @@ inline bool isValidDate(const QString& dateStr) {
     return match.hasMatch();
 }
 
-#endif //  QT_LOGGER_HPP
+#endif //  _QT_LOGGER_HPP_

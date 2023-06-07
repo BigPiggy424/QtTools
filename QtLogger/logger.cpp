@@ -23,7 +23,13 @@ LOGFORMAT	Logger::m_LogFormat	{ LOGFORMAT::TXT };
 QString		Logger::m_LogFile	{ LOG_FILE };
 
 Logger::Logger(LOGLEVEL _LogLevel, LOGTARGET _LogTarget) : 
-	m_LogLevel(_LogLevel), m_LogTarget(_LogTarget) {}
+	m_LogLevel(_LogLevel), m_LogTarget(_LogTarget)
+{
+	QString path = QDir::currentPath() + LOG_FILE;
+	QDir dir(path);
+	if (!dir.exists())
+		dir.mkdir(path);
+}
 
 /**
  * @brief 设置Log输出文件路径
@@ -92,7 +98,7 @@ bool Logger::getLogFromFile(QStringList& _LogData, const QString& _Date)
 		return false;
 	std::unique_lock<std::mutex> lock(m_FileMutex);
     QFile fileInput(QDir::currentPath()
-		 + LOG_FILE + _Date + logSuffix());
+		 + LOG_FILE + + '/' + _Date + logSuffix());
     if (fileInput.open(QIODevice::ReadOnly)) {
         QTextStream stream(&fileInput);
 
@@ -121,12 +127,8 @@ void Logger::Init(LOGLEVEL _LogLevel, LOGTARGET _LogTarget, LOGFORMAT _LogFormat
 	setLogLevel(_LogLevel);
 	setLogTarget(_LogTarget);
 	setLogFormat(_LogFormat);
-	QString path = QDir::currentPath() + LOG_FILE;
-	qDebug() << path << endl;
-	QDir dir(path);
-	if (!dir.exists())
-		dir.mkdir(path);
 	setLogFileWithDate();
+	LOG(LOGLEVEL::INFO, "初始化日志模块");
 }
 
 /**
@@ -151,7 +153,7 @@ void Logger::writeLog
 {
 	// 按日志等级确定是否需要记录
 	int logLevel = (int)_LogLevel;
-	if (logLevel > (int)getLogLevel())
+	if (!(logLevel & (int)getLogLevel()))
 		return;
 
 	// 清空之前的日志
