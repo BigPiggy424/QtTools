@@ -22,7 +22,7 @@ set(Qt5_DIR "{Qt路径}/lib/cmake/Qt5")
 find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
 
 # 添加工程头文件的搜索路径（多个路径空格分开）
-include_directories(include)
+include_directories(include QtLogger)
 
 # 递归地找出所有.h和.hpp后缀的文件
 file(GLOB_RECURSE HEADERS "*.h" "*.hpp")
@@ -30,9 +30,11 @@ file(GLOB_RECURSE RESOURCES "*.qrc")
 
 # 将src文件夹下的源文件添加到变量SOURCES中
 aux_source_directory(src SOURCES)
+aux_source_directory(QtLogger LOGGER)
 
 add_library(${PROJECT_NAME} STATIC
             ${SOURCES}
+            ${LOGGER}
             ${HEADERS}
             ${RESOURCES})
 

@@ -10,9 +10,11 @@
 #include <QRegularExpressionMatch>
 #include <QString>
 
+#ifdef _WIN32
 #if __cplusplus == 202002L
-#define CPP20
+	#define CPP20
 #endif // __cplusplus == 202002L
+#endif // _WIN32
 
 #ifndef LOG_INIT
 #define LOG_INIT Logger::Instance().Init
@@ -77,13 +79,22 @@ enum class LOGFORMAT
 /**
  * @brief 获取日志等级字符串
  */
-static constexpr const char* LOG_LEVEL_STRING[4]
+static constexpr const char* LOG_LEVEL_STRING(LOGLEVEL _LogLevel)
 {
-	"ERROR",
-	"WARNING",
-	"INFO",
-	"DEBUG"
-};
+	switch (_LogLevel)
+	{
+	case LOGLEVEL::DEBUG:
+		return "DEBUG";
+	case LOGLEVEL::INFO:
+		return "INFO";
+	case LOGLEVEL::WARNING:
+		return "WARNING";
+	case LOGLEVEL::ERROR:
+		return "ERROR";
+	default:
+		return "UNKNOWN";
+	}
+}
 
 /* 日志类 */
 class Logger

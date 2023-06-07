@@ -180,7 +180,7 @@ void Logger::writeLog
 		// [时间] [Log等级] [进程号] [线程号] [文件名] [函数名] [行号] [内容]
 		snprintf(log, LOG_SIZE,
 			"[%s] [%s] [PID : %-5d] [TID : %-5d] [%s] [%s] [LineNumber : %-4d] %s\n",
-			timeBuffer, LOG_LEVEL_STRING[logLevel], getpid(), gettid(), _FileName, _Function, _LineNumber, text);
+			timeBuffer, LOG_LEVEL_STRING(_LogLevel), getpid(), gettid(), _FileName, _Function, _LineNumber, text);
 		break;
 	case LOGFORMAT::CSV:
 		{
@@ -189,7 +189,7 @@ void Logger::writeLog
 			if (needsHeader)
 				m_LogBuffer += QString("时间,日志等级,进程号,线程号,文件名,函数名,行号,内容\n");
 			snprintf(log, LOG_SIZE, "%s,%s,%d,%d,%s,%s,%d,%s\n",
-				timeBuffer, LOG_LEVEL_STRING[logLevel],  getpid(), gettid(), _FileName, _Function, _LineNumber, text);
+				timeBuffer, LOG_LEVEL_STRING(_LogLevel),  getpid(), gettid(), _FileName, _Function, _LineNumber, text);
 		}
 		break;
 	default:
