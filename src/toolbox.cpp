@@ -35,6 +35,11 @@ ToolBox::~ToolBox()
 	delete ui;
 }
 
+ToolPage& ToolBox::operator[](const QString & category) const
+{
+	return *m_mapToolPageList.at(category);
+}
+
 QWidget* ToolBox::getWidget(const QString &category, const QString &name) const
 {
 	if (m_mapToolPageList.find(category) == m_mapToolPageList.end())

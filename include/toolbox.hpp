@@ -31,6 +31,8 @@ public:
 	void setContentsMargins(int left, int top, int right, int bottom);
 	void setSpacing(int spacing);
 
+	ToolPage& operator[](const QString& category) const;
+
 private:
 	Ui::ToolBoxClass* ui;
 	QWidget*     m_pScrollAreaWidget;     // ScrollArea的控件

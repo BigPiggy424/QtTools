@@ -24,6 +24,8 @@ public:
 
 	void setDoubleClickedEvent(std::function<void(QPushButton*)> _Func);
 
+	QWidget* operator[](const QString& name) const;
+
 public slots:
 	QWidget* getWidget(const QString& name) const;
 	bool addWidget(const QString& name, QWidget* widget);

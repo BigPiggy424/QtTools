@@ -48,6 +48,11 @@ void ToolPage::setDoubleClickedEvent(std::function<void(QPushButton*)> _Func)
     ui->pushButtonFold->setDoubleClickedEvent(_Func);
 }
 
+QWidget *ToolPage::operator[](const QString &name) const
+{
+    return getWidget(name);
+}
+
 QWidget* ToolPage::getWidget(const QString& name) const
 {
     if (m_widgetMap.find(name) == m_widgetMap.end())
